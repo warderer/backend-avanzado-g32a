@@ -1,0 +1,37 @@
+/* -- Buscar documentos en MongoDB */
+
+// Necesitamos indicar a MongoDB que base de datos vamos a usar. Si la base de datos no existe, MongoDB la creará automaticamente. Se utiliza el comando use.
+
+use('sample_mflix')
+
+/* -- Buscar UN SOLO documento en MongoDB -- */
+// findOne() es un método que nos permite buscar un solo documento en una colección. Si hay más de un documento que cumple con la condición, solo se devolverá el primero que se encuentre.
+// La estructur de findOne es la siguiente:
+// db.<nombreColeccion>.findOne({<condicion>})
+
+// Encontrar la película con el título "The Godfather"
+db.movies.findOne({title: "The Godfather"})
+
+// Encontrer una pelicula por id
+db.movies.findOne({_id: ObjectId("573a1390f29313caabcd56df")})
+
+/* -- Buscar múltiples documentos -- */
+// find() es un método que nos permite buscar múltiples documentos en una colección. Si no se especifica una condición, se devolverán todos los documentos de la colección.
+
+// Encontrar todas las películas
+db.movies.find()
+
+// Encontrar las primeras 3 películas
+db.movies.find({}).limit(3)
+
+// Contar cuantas películas hay en la colección
+db.movies.find({}).count()
+
+// Traer las ultimas 5 peliculas ordenadas por el title y solo devolver el title
+db.movies.find({}, {title: 1}).sort({title: -1}).limit(5)
+
+// Traer las ultimas 5 peliculas ordenadas por el title y solo devolver el title, sin el id.
+db.movies.find({}, {title: 1, _id: 0}).sort({title: -1}).limit(5)
+
+// Contar cuantas peliculay hay en la colección con rating "PG"
+db.movies.find({}).count({ rated: "PG" })
