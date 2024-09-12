@@ -1,0 +1,36 @@
+/* -- Actualizar Documentos en MongoDB -- */
+
+use('sample_mflix') // Me conecto a la DB que quiero usar.
+
+/* -- Actualizar UN SOLO documento -- */
+// updateOne() actualiza un solo documento que cumpla con la condición especificada.
+
+// Actualizar la pelicula con el title "The DevF Show" y cambiar el director a "Hideo Kojima"
+db.movies.updateOne(
+    { title: 'The DevF Show' },
+    { $set: { director: 'Hideo Kojima' } }
+)
+
+// $set: es un operador de actualización que reemplaza el valor de un campo por un valor especificado. Si el campo no existe, $set creará un nuevo campo con el valor especificado. Si no especifica $set, el documento SE REEMPLAZARÁ POR COMPLETO.
+
+db.movies.find({ title: 'The DevF Show' })
+
+/* -- Actualizar MÚLTIPLES documentos en MongoDB -- */
+// updateMany() actualiza TODOS los documentos que cumplan con la condición especificada.
+
+db.movies.updateMany(
+    { title: /DevF/ },
+    { $set: { runtime: 120, rated: 'PG-13' } }
+)
+
+db.movies.find({ title: /DevF/ })
+
+/* -- Push -- */
+// $push: es un oeprador de actualización que agrega un valor a un arreglo en un documento. Si el campo no existe, $push creará un nuevo campo con el valor especificado.
+
+db.movies.updateMany(
+    { title: /DevF/ },
+    { $push: { actors: 'Enrique Alvarado' } }
+)
+
+db.movies.find({ title: /DevF/ })
