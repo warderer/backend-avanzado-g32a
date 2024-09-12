@@ -1,0 +1,25 @@
+/* Eliminar Documentos en MongoDB */
+
+use('sample_mflix') // elección de la base de datos
+
+/* -- Eliminar UN SOLO documento -- */
+// deleteOne() elimina un solo documento que cumpla con el filtro especificado
+
+// Eliminar la película 'The DevF Show'
+db.movies.deleteOne({ title: 'The DevF Show'})
+
+db.movies.find({ title: 'The DevF Show'})
+
+// Eliminar una película por _id
+db.movies.deleteOne({ _id: ObjectId("66e2466e2e56a715a4f086c1")})
+
+db.movies.find({ title: /DevF/})
+
+/* -- Eliminar VARIOS documentos -- */
+// deleteMany() elimina todos los documentos que cumplan con el filtro especificado
+
+// Eliminar todas las películas que tengan 'DevF' en el título
+
+db.movies.deleteMany({ title: /DevF/})
+
+db.movies.find({ title: /DevF/})
