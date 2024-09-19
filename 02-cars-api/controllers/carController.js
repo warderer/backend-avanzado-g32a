@@ -33,11 +33,20 @@ const getCarById = async (req, res) => {
 }
 
 // Update
+const updateCarById = async (req, res) => {
+  try {
+    const updatedCar = await Car.findByIdAndUpdate(req.params.carId, req.body, { new: true })
+    res.status(200).json(updatedCar)
+  } catch (error) {
+    res.status(400).json({ message: 'Error Updating Car', error })
+  }
+}
 
 // Delete
 
 export {
   createCar,
   getAllCars,
-  getCarById
+  getCarById,
+  updateCarById
 }
