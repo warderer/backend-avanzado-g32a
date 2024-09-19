@@ -1,4 +1,5 @@
 import express from 'express'
+import { connect } from './config/database.js'
 
 const PORT = process.env.PORT || 3000
 
@@ -8,6 +9,8 @@ api.use(express.json()) // express.json() es un middleware que parsea el body de
 
 // Aquí van las rutas
 
-api.listen(PORT, () => {
-  console.log(`API running on http://localhost:${PORT} 🚀`)
+connect().then(() => {
+  api.listen(PORT, () => {
+    console.log(`API running on http://localhost:${PORT} 🚀`)
+  })
 })
