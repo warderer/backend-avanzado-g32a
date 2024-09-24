@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const authorSchema = new mongoose.Schema({
-  fistName: { type: String, required: true },
+  firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   bio: String,
   birthDate: { type: Date }, // YYYY-MM-DD,
