@@ -78,6 +78,29 @@ const getBookById = async (req, res) => {
   }
 }
 
+const getBook = async (req, res) => {
+  const identifier = req.params.bookId
+
+  let query = { isActive: true }
+  if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
+    query = { _id: identifier, isActive: true }
+  } else {
+    query = { title: identifier, isActive: true }
+  }
+
+  try {
+    const book = await Book
+      .findOne(query)
+      .populate('authors', 'firstName lastName bio birthDate -_id')
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' })
+    }
+    res.status(200).json(book)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
 // UPDATE
 
 const updateBookById = async (req, res) => {
@@ -139,5 +162,6 @@ export {
   getAllBooks,
   getBookById,
   updateBookById,
-  deleteBookById
+  deleteBookById,
+  getBook
 }
