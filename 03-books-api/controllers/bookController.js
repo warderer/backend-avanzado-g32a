@@ -67,7 +67,7 @@ const getBookById = async (req, res) => {
 
   try {
     const book = await Book
-      .findById({ _id: req.params.bookId, isActive: true })
+      .find({ _id: req.params.bookId, isActive: true })
       .populate('authors', 'firstName lastName bio birthDate -_id')
     if (!book) {
       return res.status(404).json({ message: 'Book not found' })
