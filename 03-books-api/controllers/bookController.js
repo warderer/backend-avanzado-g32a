@@ -47,7 +47,9 @@ const createBook = async (req, res) => {
 // READ
 const getAllBooks = async (req, res) => {
   try {
-    const books = await Book.find({ isActive: true })
+    const books = await Book
+      .find({ isActive: true })
+      .populate('authors', 'firstName lastName bio birthDate -_id') // populate('authors') reemplaza los ObjectID de authors por los documentos de la colección Author. 'firstName lastName birthDate -_id' indica que solo se deben mostrar esos campos y no el _id.
     if (!books) {
       return res.status(404).json({ message: 'No books found' })
     }
