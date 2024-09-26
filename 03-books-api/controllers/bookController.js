@@ -5,6 +5,19 @@ import Book from '../models/Book.js'
 const createBook = async (req, res) => {
   const bookData = req.body
 
+  // Validaciones
+  if (Object.keys(bookData).length === 0) {
+    return res.status(400).json({ message: 'Book data is required' })
+  }
+
+  if (!Array.isArray(bookData.authors)) {
+    return res.status(400).json({ message: 'Authors must be an array' })
+  }
+
+  if (!bookData.authors || bookData.authors.length === 0) {
+    return res.status(400).json({ message: 'Book must have at least one author' })
+  }
+
   // Crear autores, uno por uno y esperar a que todos se guarden en la colección
   try {
     const authorModels = await Promise.all(bookData.authors.map(async author => {
