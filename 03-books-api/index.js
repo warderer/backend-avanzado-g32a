@@ -1,6 +1,7 @@
 import express from 'express'
 import { connect } from './config/database.js'
 import bookRoutes from './routes/bookRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 import morgan from 'morgan'
 
 const PORT = process.env.PORT || 3000
@@ -17,6 +18,7 @@ app.use(morgan(':host :method :url :status :query :res[content-length] - :respon
 
 // Aqui van las rutas
 app.use('/api/v1/books', bookRoutes)
+app.use('/api/v1', authRoutes)
 
 connect().then(() => {
   app.listen(PORT, () => {
